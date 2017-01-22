@@ -1,8 +1,8 @@
 {
-  "name": "koala",
+  "name": "koa2-starter",
   "version": "1.0.0",
-  "description": "NodeJS application based on koa@2",
-  "main": "index.js",
+  "description": "Koa2 starter RESTful application",
+  "main": "app/index.js",
   "scripts": {
     "start": "DEBUG=koa2-starter:* nodemon -w app --exec \"babel-node app --presets es2015,stage-0 --plugins transform-decorators-legacy\"",
     "lint:js": "eslint app/**/*.js",
@@ -15,7 +15,8 @@
   },
   "keywords": [
     "nodejs",
-    "koa"
+    "koa",
+    "mysql"
   ],
   "author": "Aleksander Kazantsev",
   "license": "ISC",
