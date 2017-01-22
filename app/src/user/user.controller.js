@@ -1,11 +1,9 @@
-import schemas from './schemas';
-import validator from './../../utils/reqest-validator';
-
-const validate = validator(schemas);
+import { createSchema } from './schemas';
+import { validator } from './../../utils';
 
 export default class LoginController {
 
-  @validate
+  @validator(createSchema)
   static async create(ctx, next) {
     ctx.body = { foo: 'bar' };
     await next();

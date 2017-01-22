@@ -1,8 +1,8 @@
 import _debugger from 'debug';
 
-const error = _debugger('koa-example:error');
+const error = _debugger('koa2-starter:error');
 
-export const errors = async (ctx, next) => {
+export default async (ctx, next) => {
   try {
     await next();
   } catch (e) {

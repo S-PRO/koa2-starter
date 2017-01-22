@@ -1,7 +1,7 @@
-###This is sample of NodeJS application with following technologies:
+###This is sample of NodeJS RESTful application with following technologies:
 
 * koa2
-* mongo db
+* MySQL
 * babel
 * mocha
 * chai

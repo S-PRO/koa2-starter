@@ -10,11 +10,11 @@ import logger from 'koa-logger';
 import bodyParser from 'koa-bodyparser';
 import convert from 'koa-convert';
 
-import { errors } from './utils/errors';
-import * as APP_CONFIG from './config/app.config';
+import { CatchErrors } from './middlewares';
+import { SERVER } from './config/app.config';
 
-const error = _debugger('koa-example:error');
-const debug = _debugger('koa-example:debug');
+const error = _debugger('koa2-starter:error');
+const debug = _debugger('koa2-starter:debug');
 
 const app = new Koa();
 
@@ -22,11 +22,11 @@ const app = new Koa();
  * Add basic middleware and run server.
  */
 app
-  .use(errors)
-  .use(convert(cors(APP_CONFIG.CORS)))
+  .use(CatchErrors)
+  .use(convert(cors({ origin: true })))
   .use(logger())
   .use(convert(bodyParser({ limit: '10mb' })))
-  .listen(APP_CONFIG.SERVER.port);
+  .listen(SERVER.port);
 
 /**
  * Init all routes.

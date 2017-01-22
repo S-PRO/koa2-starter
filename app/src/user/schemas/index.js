@@ -1,5 +1,1 @@
-import create from './create.schema.json';
-
-export default {
-  create,
-};
+export createSchema from './create.schema.json';

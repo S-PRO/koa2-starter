@@ -1,17 +1,17 @@
 import Ajv from 'ajv';
 import Boom from 'boom';
 
-export default function(schemas = {}) {
-  const ajv = new Ajv();
+export default function(schema) {
 
   return function(target, key, descriptor) {
-    const schema = schemas[key];
     if (!schema) return descriptor;
 
+    const ajv = new Ajv();
+
     descriptor.value = new Proxy(target[key], {
-      apply: async function(method, self, [ctx, next]) {
+      apply: async function(method, self, [ctx, next, ...args]) {
         const valid = ajv.validate(schema, ctx.request.body);
-        if (valid) return method.call(self, ctx, next);
+        if (valid) return method.call(self, ctx, next, ...args);
         throw Boom.badRequest(ajv.errors);
       },
     });
