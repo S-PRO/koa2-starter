@@ -4,7 +4,7 @@
   "description": "NodeJS application based on koa@2",
   "main": "index.js",
   "scripts": {
-    "dev": "DEBUG=koa2-starter:* nodemon -w app --exec \"babel-node app --presets es2015,stage-0 --plugins transform-decorators-legacy\"",
+    "start": "DEBUG=koa2-starter:* nodemon -w app --exec \"babel-node app --presets es2015,stage-0 --plugins transform-decorators-legacy\"",
     "lint:js": "eslint app/**/*.js",
     "precommit": "npm run lint:js",
     "prepush": "npm run lint:js"

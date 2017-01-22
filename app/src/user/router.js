@@ -2,14 +2,13 @@ import Router from 'koa-router';
 
 import UserController from './user.controller';
 
-const OPTIONS = {
-  prefix: '/user',
-};
-
-const router = new Router(OPTIONS);
+const router = new Router({ prefix: '/user' });
 
 router
   .post('/', UserController.create)
-  .put('/:id', UserController.update);
+  .get('/', UserController.fetchAll)
+  .get('/:id', UserController.fetchOne)
+  .put('/:id', UserController.update)
+  .delete('/:id', UserController.remove);
 
 export default router.routes();
