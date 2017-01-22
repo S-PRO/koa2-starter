@@ -11,7 +11,7 @@ export default function(schema) {
       apply: async function(method, self, [ctx, next, ...args]) {
         const valid = ajv.validate(schema, ctx.request.body);
         if (valid) return method.call(self, ctx, next, ...args);
-        throw Boom.badRequest(ajv.errors);
+        throw Boom.badRequest('Validation error.', ajv.errors);
       },
     });
 

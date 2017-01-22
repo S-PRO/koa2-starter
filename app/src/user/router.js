@@ -10,6 +10,6 @@ const router = new Router(OPTIONS);
 
 router
   .post('/', UserController.create)
-  .post('/:id', UserController.create);
+  .put('/:id', UserController.update);
 
 export default router.routes();

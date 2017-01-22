@@ -3,10 +3,11 @@
   "title": "user create",
   "description": "create schema",
   "type": "object",
-  "required": ["foo"],
+  "required": ["first_name", "last_name", "password", "email"],
   "properties": {
-    "foo": {
-      "type": "string"
-    }
+    "first_name": { "type": "string" },
+    "last_name": { "type": "string" },
+    "password": { "type": "string" },
+    "email": { "type": "string", "format": "email" }
   }
 }

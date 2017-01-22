@@ -1,9 +1,0 @@
-{
-  "name": "koa-example",
-  "script": "app/index.js",
-  "interpreter_args": "--presets es2015,stage-0",
-  "interpreter": "./node_modules/babel-cli/bin/babel-node.js",
-  "watch": [
-    "app"
-  ]
-}
