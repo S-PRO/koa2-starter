@@ -132,8 +132,6 @@ Run locally:
 
 ## TODO
 
-### Solar System Exploration, 1950s – 1960s
-
 - [ ] Unit tests
 - [ ] Move validator to separate repo
 - [ ] Add production deployment system
