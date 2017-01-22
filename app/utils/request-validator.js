@@ -2,7 +2,6 @@ import Ajv from 'ajv';
 import Boom from 'boom';
 
 export default function(schema) {
-
   return function(target, key, descriptor) {
     if (!schema) return descriptor;
 
