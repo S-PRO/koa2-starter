@@ -132,7 +132,9 @@ Run locally:
 
 ## TODO
 
-- [ ] Unit tests
+- [ ] Add unit tests
 - [ ] Move validator to separate repo
 - [ ] Add production deployment system
-- [ ] Add /posts
+- [ ] Add /login && /posts
+- [ ] Add auth checking
+- [ ] Add ACLs
