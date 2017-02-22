@@ -1,0 +1,11 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "login user",
+  "description": "login schema",
+  "type": "object",
+  "required": ["email", "password"],
+  "properties": {
+    "email": { "type": "string", "format": "email" },
+    "password": { "type": "string" }
+  }
+}
