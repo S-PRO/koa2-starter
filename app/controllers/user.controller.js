@@ -1,10 +1,10 @@
 import Boom from 'boom';
 
-import { createSchema, updateSchema } from './schemas';
-import { validator, PasswordService } from './../../utils';
-import db from './../../models';
+import { createSchema, updateSchema } from './../db/schemas';
+import db from './../db/models';
+import { validator, PasswordService } from './../utils';
 
-export default class LoginController {
+export default class UserController {
 
   static getUser(id) {
     return db.user.findOne({ where: { id }, attributes: { exclude: ['password'] } });

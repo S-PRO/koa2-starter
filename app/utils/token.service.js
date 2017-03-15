@@ -1,34 +1,58 @@
 import jwt from 'jsonwebtoken';
+import crypto from 'crypto';
+import promisify from 'es6-promisify';
+import tokenConfig from './../config/token.config';
 
-export const TOKEN_CONFIG = {
-  KEY: 'P2y=uf.Keq!/+/RNW7Lu8v?#OOTB',
-  expires: '1y',
-  alg: 'HS256',
-};
+/*  UNCOMMENT IF YOU USE REDIS TO STORE THERE TOKENS */
+// import { createClient, print } from "redis";
+// const redis = createClient();
+// const redisGetAsync = promisify(redis.get, redis);
+// const redisSetexAsync = promisify(redis.setex, redis);
+
+const TOKEN_SECRETE = 'P2y=uf.Keq!/+/RNW7Lu8v?#OOTB';
+const signAsync = promisify(jwt.sign, jwt);
+const randomBytesAsync = promisify(crypto.randomBytes, crypto);
 
 export default class TokenService {
-  /**
-   * Generate token from users data
-   * @param {Object} - user's data
-   * @returns {string} - encoded value, token
-   */
-  static generate(data) {
-    return jwt.sign(data, TOKEN_CONFIG.KEY, {
-      expiresIn: TOKEN_CONFIG.expires,
-      algorithm: TOKEN_CONFIG.alg,
-    });
+
+  static async generateJwtId () {
+    try {
+      const jti = await randomBytesAsync(32);
+      return Promise.resolve(jti.toString('hex'));
+    } catch (e) {
+      return Promise.reject(e);
+    }
   }
 
-  /**
-   * Decode given payload (usually, authorization field from request header)
-   * @param {string} - string with token to decore
-   * @returns {object|null} - object with users data
-   */
-  static decode(payload) {
+  static async generate (payload, secret = TOKEN_SECRETE, opts = {}) {
     try {
-      return jwt.verify(payload, TOKEN_CONFIG.KEY);
+      const { auth } = tokenConfig;
+
+      const accessTokenId = await TokenService.generateJwtId();
+      const refreshTokenId = await TokenService.generateJwtId();
+
+      const accessTokenPayload = Object.assign({}, payload, { jti: accessTokenId });
+      const refreshTokenPayload = Object.assign({}, {
+        jti: refreshTokenId,
+        ati: accessTokenId,
+      });
+
+      const refreshTokenOpts = Object.assign({}, {
+        expiresIn: auth.refreshTokenTtl,
+      }, opts);
+      const accessTokenOpts = Object.assign({}, {
+        expiresIn: auth.accessTokenTtl,
+      }, opts);
+
+      const refreshToken = await signAsync(refreshTokenPayload, secret, refreshTokenOpts);
+      const accessToken = await signAsync(accessTokenPayload, secret, accessTokenOpts);
+      // await redisSetexAsync(refreshTokenId, auth.refreshTokenTtl, payload.user.username);
+      return Promise.resolve({
+        accessToken,
+        refreshToken,
+      });
     } catch (e) {
-      return null;
+      return Promise.reject(e);
     }
   }
 }
