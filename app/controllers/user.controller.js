@@ -33,7 +33,7 @@ export default class UserController {
 
   static async fetchOne(ctx, next) {
     const { id } = ctx.params;
-    const user = await LoginController.getUser(id);
+    const user = await UserController.getUser(id);
     if (!user) throw Boom.notFound('User was not found');
     ctx.body = { user };
     await next();
@@ -42,7 +42,7 @@ export default class UserController {
   @validator(updateSchema)
   static async update(ctx, next) {
     const { params: { id }, request: { body: { first_name, last_name, email } } } = ctx;
-    const user = await LoginController.getUser(id);
+    const user = await UserController.getUser(id);
     const userData = {
       first_name,
       last_name,
@@ -56,7 +56,7 @@ export default class UserController {
 
   static async remove(ctx, next) {
     const { params: { id } } = ctx;
-    const user = await LoginController.getUser(id);
+    const user = await UserController.getUser(id);
     if (!user) throw Boom.notFound('User was not found');
 
     user.destroy();
