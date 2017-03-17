@@ -37,7 +37,7 @@ db.sequelize.authenticate().then(() => {
   fs.readdirSync(`${__dirname}/src`)
     .forEach((mod) => {
       try {
-        app.use(require(`${__dirname}/src/${mod}/router.js`).default) // eslint-disable-line
+        app.use(require(`${__dirname}/src/${mod}/router.js`).default); // eslint-disable-line
         debug(`loaded: '${mod}' module.`);
       } catch (e) {
         error(`Error, while loading ${mod}`, e);
