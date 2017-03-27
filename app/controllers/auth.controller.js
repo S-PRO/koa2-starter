@@ -24,7 +24,7 @@ export default class AuthContoller {
   }
 
   static async testprivate(ctx, next) {
-    ctx.body = "testprivate";
+    ctx.body = 'testprivate';
     await next();
   }
 

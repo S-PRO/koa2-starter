@@ -18,7 +18,7 @@ export default class Auth {
       };
       if (passwordValid) {
         const token = await TokenService.generate(payload);
-        result = 'Bearer ' + token;
+        result = `Bearer ${token}`;
       } else {
         throw new Error();
       }
@@ -28,10 +28,10 @@ export default class Auth {
     return result;
   }
 
-  static async signUp (first_name, last_name, password, email) {
+  static async signUp (firstName, lastName, password, email) {
     const payload = {
-      first_name,
-      last_name,
+      first_name: firstName,
+      last_name: lastName,
       email,
       password: PasswordService.saltHashPassword(password),
     };
@@ -40,7 +40,7 @@ export default class Auth {
       const user = await db.user.create(payload);
       if (user.status === 'active') {
         const token = await TokenService.generate(payload);
-        result = 'Bearer ' + token;
+        result = `Bearer ${token}`;
       } else {
         result = 'Authentication error';
       }
