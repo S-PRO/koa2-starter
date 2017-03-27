@@ -44,18 +44,22 @@
     "debug": "^2.6.0",
     "es6-promisify": "^4.1.0",
     "jsonwebtoken": "^7.2.1",
+    "jwt-payload-decoder": "^1.2.4",
     "koa": "^2.0.0",
     "koa-bodyparser": "^3.0.0",
     "koa-compose": "^2.4.0",
     "koa-compress": "^2.0.0",
     "koa-convert": "^1.2.0",
     "koa-cors": "0.0.16",
+    "koa-jwt": "^2.0.1",
     "koa-logger": "2.0.0",
+    "koa-passport": "^3.0.0-rc.1",
     "koa-router": "^7.0.1",
     "lodash": "^4.17.4",
     "mysql2": "^1.1.2",
-    "sequelize": "4.0.0-2",
-    "koa-passport": "^3.0.0-rc.1",
-    "passport-local": "^1.0.0"
+    "passport-http-bearer": "^1.0.1",
+    "passport-jwt": "^2.2.1",
+    "passport-local": "^1.0.0",
+    "sequelize": "4.0.0-2"
   }
 }

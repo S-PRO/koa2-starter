@@ -6,12 +6,13 @@ import cors from 'koa-cors';
 import logger from 'koa-logger';
 import bodyParser from 'koa-bodyparser';
 import convert from 'koa-convert';
+import passport from 'koa-passport';
 
 import { CatchErrors } from './middlewares';
 import { SERVER } from './config/app.config';
 
 import db from './db/models';
-import router from './router';
+import { publicRouter, privateRouter } from './router';
 
 const app = new Koa();
 
@@ -24,6 +25,11 @@ db.sequelize.authenticate().then(() => {
     .use(convert(cors({ origin: true })))
     .use(logger())
     .use(convert(bodyParser({ limit: '10mb' })))
-    .use(router)
+    .use(passport.initialize())
+    .use(passport.session())
+    .use(publicRouter.routes())
+    .use(privateRouter.routes())
     .listen(SERVER.port);
 });
+
+export default app;
