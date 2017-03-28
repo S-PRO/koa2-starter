@@ -1,4 +1,4 @@
-import { Auth } from './../modules/index';
+import { Auth } from './../methods/index';
 
 export default async (ctx, next) => {
   try {
