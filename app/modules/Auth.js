@@ -42,10 +42,10 @@ export default class Auth {
         const token = await TokenService.generate(payload);
         result = `Bearer ${token}`;
       } else {
-        result = 'Authentication error';
+        result = 'Signup error';
       }
     } catch (e) {
-      result = 'Authentication error';
+      result = 'Signup error';
     }
     return result;
   }

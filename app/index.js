@@ -10,7 +10,7 @@ import cors from 'koa-cors';
 import logger from 'koa-logger';
 import bodyParser from 'koa-bodyparser';
 import convert from 'koa-convert';
-import passport from 'koa-passport';
+import helmet from 'koa-helmet';
 
 import { CatchErrors } from './middlewares';
 import { SERVER } from './config/app.config';
@@ -26,11 +26,10 @@ db.sequelize.authenticate().then(() => {
    */
   app
     .use(CatchErrors)
+    .use(helmet())// koa-helmet - security headers  middleware
     .use(convert(cors({ origin: true })))
     .use(logger())
     .use(convert(bodyParser({ limit: '10mb' })))
-    .use(passport.initialize())
-    .use(passport.session())
     .use(publicRouter.routes())
     .use(privateRouter.routes())
     .listen(SERVER.port);
