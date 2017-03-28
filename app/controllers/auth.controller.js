@@ -17,8 +17,15 @@ export default class AuthContoller {
   }
 
   static async getUser(ctx, next) {
-    const tokenString = ctx.request.header.authorization;
-    const responce = await Auth.getUser(tokenString);
+    const { request: { header: { authorization } } } = ctx;
+    let responce;
+    if (authorization) {
+      const tokenString = authorization;
+      responce = await Auth.getUser(tokenString);
+    } else {
+      responce = 'Invalid Token';
+    }
+
     ctx.body = responce;
     await next();
   }
