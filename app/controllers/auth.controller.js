@@ -1,4 +1,4 @@
-import { Auth } from './../methods/index';
+import { Auth, Upload } from './../methods/index';
 
 export default class AuthContoller {
 
@@ -37,6 +37,11 @@ export default class AuthContoller {
 
   static async testpublic(ctx, next) {
     ctx.body = 'testpublic';
+    await next();
+  }
+
+  static async testfileupload(ctx, next) {
+    await Upload.load(ctx);
     await next();
   }
 

@@ -14,6 +14,7 @@ publicRouter
   .post('/getuser', AuthContoller.getUser)
   .post('/signin', AuthContoller.signIn)
   .post('/signup', AuthContoller.signUp)
+  .post('/testupload', AuthContoller.testfileupload)
   .get('/testpublic', AuthContoller.testpublic);
 privateRouter
 /*  Protected Routes  */

@@ -16,4 +16,4 @@ const loadModules = () => {
     });
 };
 
-export default loadModules();
+export default loadModules;
