@@ -6,7 +6,7 @@ const defaultPath = './../../uploads';
 
 export default class Upload {
   static async load (ctx, path = defaultPath) {
-    const { files, fields } = await asyncBusboy(ctx.req);
+    const { files } = await asyncBusboy(ctx.req);
     // Make some validation on the fields before upload to S3
     // if (checkFiles(fields)) {
       // console.log('Files :', files);
@@ -15,18 +15,19 @@ export default class Upload {
     // } else {
     //   return 'error';
     // }
-    await files.map(function(file) {
-      fs.readFile(file.path, function (err, data) {
+    console.log(path);
+    await files.map((file) => {
+      fs.readFile(file.path, (err, data) => {
         let filename = uuid.v4();
-        let path = '/upload/';
-        let newPath = `${__dirname}${path}${filename}.png`;
+        let localpath = '/upload/';
+        let newPath = `${__dirname}${localpath}${filename}.png`;
         console.log('here');
         console.log(newPath);
-        fs.writeFile(newPath, data, function(err){
-          console.log(err);
+        fs.writeFile(newPath, data, function(error) {
+          console.log(error);
         });
       });
+      return true;
     });
-
   }
 }
