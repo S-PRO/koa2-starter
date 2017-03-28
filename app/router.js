@@ -9,14 +9,14 @@ const publicRouter = new Router();
 const privateRouter = new Router();
 
 publicRouter
-/*  Public Routes*/
+/*  Public Routes */
   //  user
   .post('/getuser', AuthContoller.getUser)
   .post('/signin', AuthContoller.signIn)
   .post('/signup', AuthContoller.signUp)
   .get('/testpublic', AuthContoller.testpublic);
 privateRouter
-/*  Protected Routes*/
+/*  Protected Routes  */
   //  auth
   .use(jwt({ secret: tokenConfig.secret }))
   .use(AuthMiddleware)

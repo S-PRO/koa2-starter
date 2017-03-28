@@ -21,9 +21,7 @@ import { publicRouter, privateRouter } from './router';
 const app = new Koa();
 
 db.sequelize.authenticate().then(() => {
-  /**
-   * Add basic middleware and run server.
-   */
+  /*  Add basic middleware and run server.  */
   app
     .use(CatchErrors)
     .use(helmet())// koa-helmet - security headers  middleware
