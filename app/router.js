@@ -13,8 +13,8 @@ publicRouter
   //  user
   .post('/getuser', AuthContoller.getUser)
   .post('/signin', AuthContoller.signIn)
-  .post('/signup', AuthContoller.signUp);
-
+  .post('/signup', AuthContoller.signUp)
+  .get('/testpublic', AuthContoller.testpublic);
 privateRouter
 /*  Protected Routes*/
   //  auth

@@ -17,14 +17,19 @@ export default class AuthContoller {
   }
 
   static async getUser(ctx, next) {
-    const { request: { body: { token } } } = ctx;
-    const responce = await Auth.getUser(token);
+    const tokenString = ctx.request.header.authorization;
+    const responce = await Auth.getUser(tokenString);
     ctx.body = responce;
     await next();
   }
 
   static async testprivate(ctx, next) {
     ctx.body = 'testprivate';
+    await next();
+  }
+
+  static async testpublic(ctx, next) {
+    ctx.body = 'testpublic';
     await next();
   }
 
