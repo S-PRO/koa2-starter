@@ -1,4 +1,4 @@
-import { Auth, Upload } from './../methods/index';
+import { Auth, File } from './../methods/index';
 
 export default class AuthContoller {
 
@@ -40,8 +40,26 @@ export default class AuthContoller {
     await next();
   }
 
-  static async testfileupload(ctx, next) {
-    await Upload.load(ctx);
+  static async fileUpload(ctx, next) {
+    await File.upload(ctx);
+    await next();
+  }
+
+  static async fileDelete(ctx, next) {
+    const { request: { body: { path } } } = ctx;
+    await File.delete(path, true);
+    await next();
+  }
+
+  static async filePath(ctx, next) {
+    const { request: { body: { path } } } = ctx;
+    ctx.body = await File.path(path);
+    await next();
+  }
+
+  static async fileExist(ctx, next) {
+    const { request: { body: { path } } } = ctx;
+    ctx.body = await File.exist(path);
     await next();
   }
 

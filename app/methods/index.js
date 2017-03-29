@@ -1,2 +1,2 @@
 export Auth from './Auth';
-export Upload from './Upload';
+export File from './File';

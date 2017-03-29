@@ -1,8 +1,8 @@
 import Boom from 'boom';
 
 import { createSchema, updateSchema } from './../db/schemas';
-import db from './../db/models';
 import { validator, PasswordService } from './../utils';
+import db from './../db/models';
 
 export default class UserController {
 
