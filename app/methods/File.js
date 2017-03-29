@@ -40,21 +40,15 @@ export default class File {
     }
   }
   /* check if file exist */
-  // static async exist (fileName) {
-  //   const destinationPath = path.join(__dirname, '..', '..', '/uploads/');
-  //   let fileExist;
-  //   if (fileName) {
-  //     const file = `${destinationPath}${fileName}`;
-  //     await fs.stat(file, (err) => {
-  //       if (err) {
-  //         fileExist = false;
-  //       } else {
-  //         fileExist = true;
-  //       }
-  //     });
-  //   }
-  //   return fileExist;
-  // }
+  static async exist (fileName) {
+    const destinationPath = path.join(__dirname, '..', '..', '/uploads/');
+    let fileExist;
+    if (fileName) {
+      const filePath = `${destinationPath}${fileName}`;
+      fileExist = fs.existsSync(filePath);
+    }
+    return fileExist;
+  }
   /* get full path to file by his name */
   static async path (fileName) {
     const destinationPath = path.join(__dirname, '..', '..', '/uploads/');
