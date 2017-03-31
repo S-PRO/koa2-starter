@@ -6,15 +6,18 @@ import ExampleContoller from './controllers/example.controller';
 import { AuthMiddleware } from './middlewares/index';
 import tokenConfig from './config/token.config';
 
+const TOKEN_SECRET = tokenConfig.accessToken.key;
 const publicRouter = new Router();
 const privateRouter = new Router();
 
 publicRouter
 /*  Public Routes */
   //  user
-  .post('/getuser', AuthContoller.getUser)
-  .post('/signin', AuthContoller.signIn)
-  .post('/signup', AuthContoller.signUp)
+
+  .post('/auth/signin', AuthContoller.signIn)
+  .post('/auth/signup', AuthContoller.signUp)
+  .post('/auth/refreshtoken', AuthContoller.refreshJWTToken)
+  .post('/auth/getuser', AuthContoller.getUser)
   // example controller show work of custom methods
   .post('/file/upload', ExampleContoller.fileUpload)
   .post('/file/delete', ExampleContoller.fileDelete)
@@ -24,7 +27,8 @@ publicRouter
 privateRouter
 /*  Protected Routes  */
   //  auth
-  .use(jwt({ secret: tokenConfig.secret }))
+
+  .use(jwt({ secret: TOKEN_SECRET }))
   .use(AuthMiddleware)
   .get('/testprivate', ExampleContoller.testprivate)
   .post('/user', UserController.create)

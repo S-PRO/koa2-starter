@@ -1,46 +1,41 @@
 import { TokenService, PasswordService } from './../utils/index';
+import TOKEN_CONFIG from './../config/token.config';
 import db from './../db/models';
 
 export default class Auth {
 
   static async signIn (email, password) {
     let result;
-    try {
-      const user = await db.user.findOne({ where: { email: email } });
-      const passwordValid = await PasswordService.comparePassword(user.password, password);
-      const payload = {
-        id: user.id,
-        first_name: user.first_name,
-        last_name: user.last_name,
-        email: user.email,
-        password: user.password,
-        status: user.status,
-      };
-      if (passwordValid) {
-        const token = await TokenService.generate(payload);
-        result = `Bearer ${token}`;
-      } else {
-        throw new Error();
-      }
-    } catch (e) {
-      result = 'Authentication error';
+    const user = await db.user.findOne({ where: { email: email } });
+    const passwordValid = await PasswordService.comparePassword(user.password, password);
+    const payload = {
+      id: user.id,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      email: user.email,
+      password: user.password,
+      status: user.status,
+    };
+    if (passwordValid) {
+      result = Auth.generateToken(payload, TOKEN_CONFIG);
+    } else {
+      throw new Error();
     }
     return result;
   }
 
   static async signUp (firstName, lastName, password, email) {
+    let result;
     const payload = {
       first_name: firstName,
       last_name: lastName,
       email,
       password: PasswordService.saltHashPassword(password),
     };
-    let result;
     try {
       const user = await db.user.create(payload);
       if (user.status === 'active') {
-        const token = await TokenService.generate(payload);
-        result = `Bearer ${token}`;
+        result = Auth.generateToken(payload, TOKEN_CONFIG);
       } else {
         result = 'Signup error';
       }
@@ -50,27 +45,32 @@ export default class Auth {
     return result;
   }
 
-  static async getUser(tokenString) {
+  static async generateToken (payload, tokenConfig) {
+    const accessToken = await TokenService.generate(payload, tokenConfig.accessToken);
+    const refreshToken = await TokenService.generate(payload, tokenConfig.refreshToken);
+    const token = {
+      accessToken: `Bearer ${accessToken}`,
+      refreshToken: `Bearer ${refreshToken}`,
+    };
+    return token;
+  }
+
+  static async decodeToken(tokenString) {
     const token = tokenString.replace('Bearer ', '');
-    const decode = await TokenService.decode(token);
+    const decode = await TokenService.decode(token, TOKEN_CONFIG.accessToken);
     return decode;
   }
-  //  validate jwt ,checkt expires it or no,
-  static async isAuth (tokenString) {
+
+  static async refreshToken (tokenString) {
+    let refreshToken;
     const token = tokenString.replace('Bearer ', '');
-    let result = false;
-    try {
-      const decodedUser = await Auth.getUser(token);
-      const user = await db.user.findOne({ where: { email: decodedUser.email } });
-      if (user.password === decodedUser.password) {
-        result = true;
-      } else {
-        result = false;
-      }
-    } catch (e) {
-      result = false;
+    const payload = await TokenService.decode(token, TOKEN_CONFIG.accessToken);
+    delete payload.iat;
+    delete payload.exp;
+    if (payload) {
+      refreshToken = await Auth.generateToken(payload, TOKEN_CONFIG);
     }
-    return result;
+    return refreshToken;
   }
 
 }

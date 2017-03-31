@@ -1,9 +1,14 @@
-const tokenConfig = {
-  auth: {
-    accessTokenTtl: 60 * 5,
-    refreshTokenTtl: 60 * 1,
+const TOKEN_CONFIG = {
+  accessToken: {
+    key: 'P2y=uf.Keq!/+/RNW7Lu8v?#OOTB',
+    expires: '1y',
+    alg: 'HS256',
   },
-  secret: 'P2y=uf.Keq!/+/RNW7Lu8v?#OOTB',
+  refreshToken: {
+    key: 'P2y=uf.Keq!/+/RNW7Lu8v?#OOTB',
+    expires: '1y',
+    alg: 'HS256',
+  },
 };
 
-export default tokenConfig;
+export default TOKEN_CONFIG;
