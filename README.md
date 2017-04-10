@@ -63,6 +63,7 @@ Run locally:
 └── upload/       --> Application uploaded files folder
 ```
 
+## REST API Endpoint examples
 
 Public
 
@@ -233,8 +234,5 @@ HEADERS:
 ## TODO
 
 - [ ] Add unit tests
-- [ ] Move validator to separate repo
 - [ ] Add production deployment system
-- [ ] Add /login && /posts
-- [ ] Add auth checking
 - [ ] Add ACLs

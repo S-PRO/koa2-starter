@@ -12,10 +12,11 @@ const TOKEN_SECRET = tokenConfig.accessToken.key;
 const privateRouter = new Router();
 
 privateRouter
-
+  /*
+    JWT Token check middlewares
+  */
   .use(jwt({ secret: TOKEN_SECRET }))
   .use(AuthMiddleware)
-
   /*
     Get jwt token payload
   */
