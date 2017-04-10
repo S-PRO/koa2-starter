@@ -13,7 +13,7 @@
 - Git hooks
 
 ## Description:
-This Koa 2 REST API boilerplate based on fork from awesome <a href="https://github.com/S-PRO/koa2-starter" target='_blank'>Alexander Kazantsev node.js/koa boilerplate</a><br>
+This Koa 2 REST API boilerplate based on fork from awesome <a href="https://github.com/S-PRO/koa2-starter" target="_blank">Alexander Kazantsev node.js/koa boilerplate</a><br>
 Features:
 <ul>
 <li>MVC like Pattern</li>
