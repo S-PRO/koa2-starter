@@ -16,7 +16,7 @@ import { CatchErrors } from './middlewares';
 import { SERVER } from './config/app.config';
 
 import db from './db/models';
-import { publicRouter, privateRouter } from './router';
+import { publicRoutes, privateRoutes } from './router';
 
 const app = new Koa();
 
@@ -28,8 +28,8 @@ db.sequelize.authenticate().then(() => {
     .use(convert(cors({ origin: true })))
     .use(logger())
     .use(convert(bodyParser({ limit: '10mb' })))
-    .use(publicRouter.routes())
-    .use(privateRouter.routes())
+    .use(publicRoutes.routes())
+    .use(privateRoutes.routes())
     .listen(SERVER.port);
 });
 

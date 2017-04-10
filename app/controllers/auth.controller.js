@@ -16,7 +16,7 @@ export default class AuthContoller {
     await next();
   }
 
-  static async getUser (ctx, next) {
+  static async tokenPayload (ctx, next) {
     const { request: { header: { authorization } } } = ctx;
     let responce;
     if (authorization) {

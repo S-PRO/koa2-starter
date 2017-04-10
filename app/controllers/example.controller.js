@@ -3,17 +3,24 @@ import { File } from './../methods/index';
 export default class ExampleContoller {
 
   static async testprivate(ctx, next) {
-    ctx.body = 'testprivate';
+    const responce = {};
+    responce.text = 'private route';
+    ctx.body = responce;
     await next();
   }
 
   static async testpublic(ctx, next) {
-    ctx.body = 'testpublic';
+    const responce = {};
+    responce.text = 'public route';
+    ctx.body = responce;
     await next();
   }
 
   static async fileUpload(ctx, next) {
     await File.upload(ctx);
+    const responce = {};
+    responce.upload = true;
+    ctx.body = responce;
     await next();
   }
 
@@ -24,14 +31,18 @@ export default class ExampleContoller {
   }
 
   static async filePath(ctx, next) {
-    const { request: { body: { path } } } = ctx;
-    ctx.body = await File.path(path);
+    const { path } = ctx.params;
+    const responce = {};
+    responce.path = await File.path(path);
+    ctx.body = responce;
     await next();
   }
 
   static async fileExist(ctx, next) {
-    const { request: { body: { path } } } = ctx;
-    ctx.body = await File.exist(path);
+    const { path } = ctx.params;
+    const responce = {};
+    responce.exist = await File.exist(path);
+    ctx.body = responce;
     await next();
   }
 
