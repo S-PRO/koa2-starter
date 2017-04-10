@@ -3,11 +3,25 @@
 ## Technologies:
 
 - Koa v2
+- ES 7
 - MySQL
+- REST API
+- JWT Tokens
 - JSON Schema
 - Yarn
 - ESLint
 - Git hooks
+
+## Description:
+This Koa 2 REST API boilerplate based on fork from awesome <a href="https://github.com/S-PRO/koa2-starter" target='_blank'>Alexander Kazantsev node.js/koa boilerplate</a><br>
+Features:
+<ul>
+<li>MVC like Pattern</li>
+<li>REST API</li>
+<li>Built in Email/password Authorization using JWT tokens</li>
+<li>Built in File upload methods</li>
+<li>Public and Auth protected routes</li>
+</ul>
 
 ## Getting started
 

@@ -15,9 +15,11 @@
   "keywords": [
     "nodejs",
     "koa",
-    "mysql"
+    "mysql",
+    "boilerplate",
+    "api"
   ],
-  "author": "Aleksander Kazantsev",
+  "author": "Bogdan Tarasenko",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/dots-the-game/koala/issues"
