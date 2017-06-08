@@ -8,6 +8,7 @@ export default class File {
   /* upload files */
   static async upload (ctx) {
     const { files } = await asyncBusboy(ctx.req);
+    console.log(files);
     await files.map((file) => {
       fs.readFile(file.path, (err, data) => {
         const fileName = uuid.v4();
