@@ -1,10 +1,10 @@
 import Boom from 'boom';
 
-import { createSchema, updateSchema } from './schemas';
-import { validator, PasswordService } from './../../utils';
-import db from './../../models';
+import { createSchema, updateSchema } from './../db/schemas';
+import { validator, PasswordService } from './../utils';
+import db from './../db/models';
 
-export default class LoginController {
+export default class UserController {
 
   static getUser(id) {
     return db.user.findOne({ where: { id }, attributes: { exclude: ['password'] } });
@@ -33,7 +33,7 @@ export default class LoginController {
 
   static async fetchOne(ctx, next) {
     const { id } = ctx.params;
-    const user = await LoginController.getUser(id);
+    const user = await UserController.getUser(id);
     if (!user) throw Boom.notFound('User was not found');
     ctx.body = { user };
     await next();
@@ -42,7 +42,7 @@ export default class LoginController {
   @validator(updateSchema)
   static async update(ctx, next) {
     const { params: { id }, request: { body: { first_name, last_name, email } } } = ctx;
-    const user = await LoginController.getUser(id);
+    const user = await UserController.getUser(id);
     const userData = {
       first_name,
       last_name,
@@ -56,7 +56,7 @@ export default class LoginController {
 
   static async remove(ctx, next) {
     const { params: { id } } = ctx;
-    const user = await LoginController.getUser(id);
+    const user = await UserController.getUser(id);
     if (!user) throw Boom.notFound('User was not found');
 
     user.destroy();
